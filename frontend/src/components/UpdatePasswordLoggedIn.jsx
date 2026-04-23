@@ -29,7 +29,7 @@ const UpdatePasswordLoggedIn = ({ onClose }) => {
     setIsLoading(true);
     try {
       const response = await axiosWrapper.post(
-        `/${user? user.toLowerCase() : userType.toLowerCase()}/change-password`,
+        `/${user==="scholar"? user.toLowerCase() : userType.toLowerCase()}/change-password`,
         {
           currentPassword,
           newPassword,
