@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./client
+    container_name: frontend
+    restart: always
+    environment:
+      REACT_APP_APILINK = http://localhost:8080/api
+      REACT_APP_MEDIA_LINK = http://localhost:8080/media
+
+  backend:
+    build: ./server
+    container_name: backend
+    restart: always
+    environment:
+      - PORT = 8080
+        MONGO_URI=mongodb://mongo:27017/CSE
+        JWT_SECRET = THISISSECRET
+        NODEMAILER_EMAIL = hostelproj00000@gmail.com
+        NODEMAILER_PASS = klxw huyn lfgu kfif
+        FRONTEND_API_LINK = http://localhost:3000
+
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  mongo-data:
