@@ -30,7 +30,7 @@ exports.createScholar = async (req, res) => {
     if (existing) {
       return ApiResponse.success("Scholar with this roll number already exists").send(res);
     }
-    const password=firstName+"123";
+    const password="student123";
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -267,9 +267,9 @@ exports.getScholarById = async (req, res) => {
     }
 
     const scholar = await Scholar.findById(id)
-      .populate("supervisor", "firstName lastName")
-      .populate("coSupervisor", "firstName lastName")
-      .populate("srcCommittee.member", "firstName lastName");
+      .populate("supervisor", "firstName lastName email")
+      .populate("coSupervisor", "firstName lastName email")
+      .populate("srcCommittee.member", "firstName lastName email");
 
     if (!scholar) {
       return ApiResponse.success("No Record!").send(res);
