@@ -2,25 +2,18 @@ version: "3.8"
 
 services:
   frontend:
-    build: ./client
+    build: ./frontend
     container_name: frontend
     restart: always
-    environment:
-      REACT_APP_APILINK = http://localhost:8080/api
-      REACT_APP_MEDIA_LINK = http://localhost:8080/media
+    env_file:
+      - ./frontend/.env
 
   backend:
-    build: ./server
+    build: ./backend
     container_name: backend
     restart: always
-    environment:
-      - PORT = 8080
-        MONGO_URI=mongodb://mongo:27017/CSE
-        JWT_SECRET = THISISSECRET
-        NODEMAILER_EMAIL = hostelproj00000@gmail.com
-        NODEMAILER_PASS = klxw huyn lfgu kfif
-        FRONTEND_API_LINK = http://localhost:3000
-
+    env_file:
+      - ./backend/.env
     depends_on:
       - mongo
 
