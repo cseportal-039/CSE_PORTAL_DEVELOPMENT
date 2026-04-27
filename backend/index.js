@@ -12,19 +12,30 @@ const allowedOrigins = [
   process.env.FRONTEND_API_LINK?.trim(),
   "http://localhost:3000",
   "http://127.0.0.1:3000",
-].filter(Boolean);
+  "http://localhost:8080",
+  "http://127.0.0.1:8080",
+
+  /^http:\/\/10.\.\d+\.\d+\.\d+:8080$/,
+  /^http:\/\/192.\.\d+\.\d+\.\d+:8080$/
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) {
         return callback(null, true);
       }
-
-      return callback(new Error("Not allowed by CORS"));
+      
+      const isAllowed = allowedOrigins.some(o=>
+	o instanceof RegExp ? o.test(origin) : o === origin
+      );
+      if (isAllowed) {
+        return callback(null, true);
+      }
+      else
+        return callback(new Error("Not allowed by CORS"));
     },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
