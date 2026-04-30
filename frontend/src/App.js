@@ -31,15 +31,15 @@ const App = () => {
             {/* public routes */}
             <Route path="/" element={<Layout />}>
               <Route index element={<DepartmentPage />} />
-              <Route path="faculties" element={<FacultySection />} />
-              <Route path="academic" element={<AcademicSection />} />
-              <Route path="researchers" element={<ResearchPage />} />
-              <Route path="news" element={<NewsPage />} />
-              <Route path="events" element={<EventPage />} />
+              <Route path="/faculties" element={<FacultySection />} />
+              <Route path="/academic" element={<AcademicSection />} />
+              <Route path="/researchers" element={<ResearchPage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/events" element={<EventPage />} />
 
             </Route>
-            <Route path="faculty-details/:id" element={<FacultyDetail />} />
-            <Route path="researcher-details/:id" element={<ResearcherDetails />} />
+            <Route path="/faculty-details/:id" element={<FacultyDetail />} />
+            <Route path="/researcher-details/:id" element={<ResearcherDetails />} />
             
             {/* protected routes */}
             <Route path="/login" element={<Login />} />

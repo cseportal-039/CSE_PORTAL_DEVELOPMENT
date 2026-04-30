@@ -5,18 +5,16 @@ const app = express();
 const path = require("path");
 const cors = require("cors");
 
-connectToMongo();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8080;
 const allowedOrigins = [
   process.env.FRONTEND_API_LINK?.trim(),
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   "http://localhost:8080",
   "http://127.0.0.1:8080",
-
+  "http://10.113.0.20:8080",
   /^http:\/\/10.\.\d+\.\d+\.\d+:8080$/,
-  /^http:\/\/192.\.\d+\.\d+\.\d+:8080$/
 ];
 
 app.use(
@@ -56,7 +54,6 @@ app.use("/api/student", require("./routes/details/student-details.route"));
 app.use("/api/branch", require("./routes/branch.route"));
 app.use("/api/subject", require("./routes/subject.route"));
 app.use("/api/notice", require("./routes/notice.route"));
-// app.use("/api/research", require("./routes/research.route"));
 app.use("/api/timetable", require("./routes/timetable.route"));
 app.use("/api/material", require("./routes/material.route"));
 app.use("/api/exam", require("./routes/exam.route"));
@@ -64,6 +61,11 @@ app.use("/api/marks", require("./routes/marks.route"));
 app.use("/api/scholar", require("./routes/scholar.route"));
 app.use("/api/publication", require("./routes/publication.route"));
 
-app.listen(port, () => {
-  console.log(`Server Listening On http://localhost:${port}`);
-});
+connectToMongo().then(() => {
+    app.listen(port, () => {
+      console.log(`Server running on ${port}`);
+    });
+  })
+  .catch(err => {
+    console.error("Mongo failed", err);
+  });

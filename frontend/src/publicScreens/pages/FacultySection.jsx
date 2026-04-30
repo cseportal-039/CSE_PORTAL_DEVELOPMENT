@@ -34,7 +34,7 @@ const FacultySection = () => {
       designation: item.designation || "Faculty Member",
       email: item.email ? item.email.replace("@cse.nitjsr.ac.in", "") : "",
       phone: item.phone || "",
-      office: [item.address, item.city, item.state].filter(Boolean).join(", "),
+      address: [item.address, item.city, item.state].filter(Boolean).join(", "),
       research: item.branchId?.name
         ? `Branch: ${item.branchId.name}`
         : "Faculty details added from admin panel.",

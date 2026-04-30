@@ -17,6 +17,7 @@ const NewsPage = () => {
           setFilteredNotice(response.data.data);
         }
       } catch (error) {
+        console.log(error);
         setNotices([]);
       }
     };

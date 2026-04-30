@@ -57,9 +57,9 @@ const registerAdminController = async (req, res, next) => {
 
     const profile = req.file?.filename;
 
-    if (!profile) {
-      return ApiResponse.badRequest("Profile photo is required").send(res);
-    }
+    // if (!profile) {
+    //   return ApiResponse.badRequest("Profile photo is required").send(res);
+    // }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return ApiResponse.badRequest("Invalid email format").send(res);
